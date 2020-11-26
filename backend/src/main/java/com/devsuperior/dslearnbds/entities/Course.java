@@ -1,4 +1,4 @@
-package com.helberthlucas.dslearn.entities;
+package com.devsuperior.dslearnbds.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_course")
-public class Course implements Serializable{
+public class Course implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -26,7 +26,7 @@ public class Course implements Serializable{
 	@OneToMany(mappedBy = "course")
 	private List<Offer> offers = new ArrayList<>();
 	
-	public Course() {	
+	public Course() {
 	}
 
 	public Course(Long id, String name, String imgUri, String imgGrayUri) {
@@ -69,7 +69,9 @@ public class Course implements Serializable{
 		this.imgGrayUri = imgGrayUri;
 	}
 
-
+	public List<Offer> getOffers() {
+		return offers;
+	}
 
 	@Override
 	public int hashCode() {
@@ -77,10 +79,6 @@ public class Course implements Serializable{
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
-	}
-
-	public List<Offer> getOffers() {
-		return offers;
 	}
 
 	@Override
@@ -99,10 +97,4 @@ public class Course implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
 }

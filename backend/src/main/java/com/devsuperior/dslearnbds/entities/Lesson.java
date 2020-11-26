@@ -1,11 +1,12 @@
-package com.helberthlucas.dslearn.entities;
+package com.devsuperior.dslearnbds.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,12 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_lesson")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Lesson implements Serializable{
+public abstract class Lesson implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -30,16 +32,20 @@ public abstract class Lesson implements Serializable{
 	private Integer position;
 	
 	@ManyToOne
-	@JoinColumn(name ="section_id")
+	@JoinColumn(name = "section_id")
 	private Section section;
 	
+	@OneToMany(mappedBy = "lesson")
+	private List<Deliver> deliveries = new ArrayList<>();
+	
 	@ManyToMany
-	@JoinTable(name="tb_lessons_done",
-	joinColumns = @JoinColumn(name="lesson_id"),
-	inverseJoinColumns = {
-			@JoinColumn(name="user_id"),
-			@JoinColumn(name="offer_id")
-	})
+	@JoinTable(name = "tb_lessons_done",
+		joinColumns = @JoinColumn(name = "lesson_id"),
+		inverseJoinColumns = {
+				@JoinColumn(name = "user_id"),
+				@JoinColumn(name = "offer_id")
+		}
+	)
 	private Set<Enrollment> enrollmentsDone = new HashSet<>();
 	
 	public Lesson() {
@@ -89,6 +95,10 @@ public abstract class Lesson implements Serializable{
 		return enrollmentsDone;
 	}
 
+	public List<Deliver> getDeliveries() {
+		return deliveries;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -113,9 +123,4 @@ public abstract class Lesson implements Serializable{
 			return false;
 		return true;
 	}
-
-
-	
-	
-	
 }

@@ -1,4 +1,4 @@
-package com.helberthlucas.dslearn.entities.pk;
+package com.devsuperior.dslearnbds.entities.pk;
 
 import java.io.Serializable;
 
@@ -6,19 +6,19 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.helberthlucas.dslearn.entities.Offer;
-import com.helberthlucas.dslearn.entities.User;
+import com.devsuperior.dslearnbds.entities.Offer;
+import com.devsuperior.dslearnbds.entities.User;
 
 @Embeddable
-public class EnrollmentPK implements Serializable{
+public class EnrollmentPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name ="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@ManyToOne
-	@JoinColumn(name ="offer_id")
+	@JoinColumn(name = "offer_id")
 	private Offer offer;
 	
 	public EnrollmentPK() {
@@ -76,7 +76,4 @@ public class EnrollmentPK implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 }
